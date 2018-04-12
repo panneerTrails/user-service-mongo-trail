@@ -1,0 +1,17 @@
+info:
+  description: "Service for user-service with CRUD operations in mongo"
+
+spring:
+  application:
+    name: user-service-mongo-trail
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/USER
+
+security:
+  basic:
+    enabled: false
+
+server:
+  port: 9094

@@ -1,0 +1,8 @@
+---
+applications:
+- name: user-service-mongo-trail
+  instance: 1
+  host: user-service-mongo-trail
+  path: build\libs\user-service-mongo-trail-0.0.1-SNAPSHOT.jar
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git
+  memory: 680M
