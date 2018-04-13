@@ -1,10 +1,12 @@
 package com.mongotrail.userservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 
 public class User {
 
     @Id
+    @JsonIgnore
     private String id;
     private String name;
     private int age;
