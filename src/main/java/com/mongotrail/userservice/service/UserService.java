@@ -6,6 +6,7 @@ import com.mongotrail.userservice.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,10 +30,20 @@ public class UserService {
         return userRepository.findOne(id);
     }
 
+    public Boolean isUserExists(String id) {
+        LOGGER.info("UserService::Inside isUserExists:::");
+        return userRepository.exists(id);
+    }
+
     public String deleteUser(String id) {
         LOGGER.info("UserService::Inside deleteUser:::");
         userRepository.delete(id);
         return "success";
+    }
+
+    public String removeUser(String name) {
+        LOGGER.info("UserService::Inside deleteUser:::");
+        return userRepository.removeUser(name);
     }
 
     //Custom Query - Starts
@@ -42,11 +53,39 @@ public class UserService {
         return "success";
     }
 
+    public String updateFirst(String findName, String replaceName) {
+        LOGGER.info("UserService::Inside updateUser:::");
+        userRepository.updateFirst(findName, replaceName);
+        return "success";
+    }
+
+    public String updateMulti(String findName, String replaceName) {
+        LOGGER.info("UserService::Inside updateUser:::");
+        userRepository.updateMulti(findName, replaceName);
+        return "success";
+    }
+
+    public User findAndModify(String findName, String replaceName) {
+        LOGGER.info("UserService::Inside updateUser:::");
+        return userRepository.findAndModify(findName, replaceName);
+    }
+
+    public User upsert(String findName, String replaceName) {
+        LOGGER.info("UserService::Inside updateUser:::");
+        return userRepository.upsert(findName, replaceName);
+    }
+
+
+
     public List<User> getUserByName(String name) {
         LOGGER.info("UserService::Inside getByName:::");
         return userRepository.getUserByName(name);
     }
 
+    public List<User> findAllUser(String name) {
+        LOGGER.info("UserService::Inside findAllUser:::");
+        return userRepository.findAll(new Sort(Sort.Direction.ASC, name));
+    }
 
     public List<User> getUserByIsLike(String name) {
         LOGGER.info("UserService::Inside getUserByIsLike:::");
