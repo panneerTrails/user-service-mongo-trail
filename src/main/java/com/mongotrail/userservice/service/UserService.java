@@ -1,6 +1,7 @@
 package com.mongotrail.userservice.service;
 
 import com.mongotrail.userservice.entity.User;
+import com.mongotrail.userservice.entity.UserEmailOnly;
 import com.mongotrail.userservice.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public String addUser(User user) {
+    public String createUser(User user) {
         LOGGER.info("UserService::Inside addUser:::");
         userRepository.save(user);
         return "success";
@@ -35,9 +36,9 @@ public class UserService {
     }
 
     //Custom Query - Starts
-    public String updateUser(User user) {
+    public String updateUser(User user, String id) {
         LOGGER.info("UserService::Inside updateUser:::");
-        userRepository.updateUserByName(user);
+        userRepository.updateUserByName(user, id);
         return "success";
     }
 
@@ -54,6 +55,14 @@ public class UserService {
 
     //Custom Query - Ends
 
-
+    public String updateUserPatchMapping(UserEmailOnly user, String id){
+        User availableUserInfo = userRepository.findOne(id);
+        LOGGER.info("UserService::Inside updateUserPatchMapping:::userInfo::", availableUserInfo);
+        if (!availableUserInfo.getEmail().equals(user.getEmail())){
+            availableUserInfo.setEmail(user.getEmail());
+        }
+        userRepository.save(availableUserInfo);
+        return "success";
+    }
 
 }

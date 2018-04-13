@@ -17,9 +17,9 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
     @Autowired
     MongoTemplate mongoTemplate;
 
-    public User updateUserByName(User user){
+    public User updateUserByName(User user, String id){
 
-        Query query = new Query(Criteria.where("_id").is(user.getId()));
+        Query query = new Query(Criteria.where("_id").is(id));
         Update update = new Update();
 
         String name = user.getName();
