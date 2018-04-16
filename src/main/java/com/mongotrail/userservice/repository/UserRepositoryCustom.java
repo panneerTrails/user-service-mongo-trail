@@ -2,8 +2,6 @@ package com.mongotrail.userservice.repository;
 
 import com.mongotrail.userservice.entity.User;
 
-import java.util.List;
-
 public interface UserRepositoryCustom {
 
     public User updateUserByName(User user, String id);
