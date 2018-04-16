@@ -6,6 +6,9 @@ import com.mongotrail.userservice.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +23,7 @@ public class UserService {
     private UserRepository userRepository;
 
     public String createUser(User user) {
-        LOGGER.info("UserService::Inside addUser:::");
+        LOGGER.info("UserService::Inside createUser:::");
         userRepository.save(user);
         return "success";
     }
@@ -54,7 +57,7 @@ public class UserService {
     }
 
     public String updateFirst(String findName, String replaceName) {
-        LOGGER.info("UserService::Inside updateUser:::");
+        LOGGER.info("UserService::Inside updateFirst:::");
         userRepository.updateFirst(findName, replaceName);
         return "success";
     }
@@ -66,25 +69,32 @@ public class UserService {
     }
 
     public User findAndModify(String findName, String replaceName) {
-        LOGGER.info("UserService::Inside updateUser:::");
+        LOGGER.info("UserService::Inside findAndModify:::");
         return userRepository.findAndModify(findName, replaceName);
     }
 
     public User upsert(String findName, String replaceName) {
-        LOGGER.info("UserService::Inside updateUser:::");
+        LOGGER.info("UserService::Inside upsert:::");
         return userRepository.upsert(findName, replaceName);
     }
 
 
 
     public List<User> getUserByName(String name) {
-        LOGGER.info("UserService::Inside getByName:::");
+        LOGGER.info("UserService::Inside getUserByName:::");
         return userRepository.getUserByName(name);
     }
 
     public List<User> findAllUser(String name) {
         LOGGER.info("UserService::Inside findAllUser:::");
         return userRepository.findAll(new Sort(Sort.Direction.ASC, name));
+    }
+
+    public List<User> findAllPageable() {
+        LOGGER.info("UserService::Inside findAllPageable:::");
+        Pageable pageableRequest = new PageRequest(0, 1);
+        Page<User> page = userRepository.findAll(pageableRequest);
+        return page.getContent();
     }
 
     public List<User> getUserByIsLike(String name) {

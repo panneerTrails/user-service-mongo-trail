@@ -147,6 +147,13 @@ public class UserController {
         LOGGER.info("Inside UserController::findAllUser:::");
         return userService.findAllUser(name);
     }
+
+    @GetMapping(value = "/findAllPageable")
+    @ResponseStatus(HttpStatus.OK)
+    public List<User> findAllPageable() {
+        LOGGER.info("Inside UserController::findAllPageable:::");
+        return userService.findAllPageable();
+    }
     //Custom Query - Ends
 
     @RequestMapping(value = "/{id}",method = RequestMethod.HEAD)
